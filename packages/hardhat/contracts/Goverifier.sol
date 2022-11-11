@@ -21,17 +21,16 @@ contract Goverifier is ERC721URIStorage, Ownable {
         currentId.increment();
     }
 
-    function mintCustomMultiple(string memory imgURI) public onlyOwner {
+    function mintCustom(string memory imgURI) public onlyOwner {
         require(isSaleActive, "Sorry, too late lol");
 
         for (uint256 i = 0; i < officers.length; i++) {
             string memory json = Base64.encode(bytes(string(abi.encodePacked(
                 '{ "name": "GVTV #',
                 Strings.toString(currentId.current()),
-                '", "id": ', Strings.toString(currentId.current()), ', "description": "NFT Marketplace for Goverifier project", ', 
-                '"traits": [{ "trait_type": "fast", "value": "true" }, { "trait_type": "Purchased", "value": "true" }], ',
-                '"image": "ipfs://', imgURI, '",'
-                // '"time": "', time, '" }'
+                '", "id": ', Strings.toString(currentId.current()), ', "description": "NFT Minter for Goverifier project", ', 
+                '"traits": [{ "trait_type": "VIP", "value": "true" }, { "trait_type": "Purchased", "value": "true" }], ',
+                '"image": "ipfs://', imgURI, '" }'
             ))));
 
             string memory tokenURI = string(abi.encodePacked("data:application/json;base64,", json));
@@ -49,6 +48,8 @@ contract Goverifier is ERC721URIStorage, Ownable {
         }
     }
 
+    // comment for compilation
+
     function openSale() public onlyOwner {
         isSaleActive = true;
     }
@@ -58,8 +59,10 @@ contract Goverifier is ERC721URIStorage, Ownable {
     function getOfficers() public view returns (address[] memory) {
         return officers;
     }
-    function addOfficer(address add) public onlyOwner {
-        officers.push(add);
+    function addOfficer(address[] memory addresses) public onlyOwner {
+        for (uint i = 0; i < addresses.length; i++) {
+            officers.push(addresses[i]);
+        }
     }
     function removeOfficer(address rem) public onlyOwner {
         for (uint256 i = 0; i < officers.length; i++) {
@@ -69,4 +72,4 @@ contract Goverifier is ERC721URIStorage, Ownable {
             }
         }
     }
-}
+} 
