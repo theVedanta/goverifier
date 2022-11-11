@@ -40,7 +40,7 @@ const Nav = ({ address, setAddress }) => {
     };
 
     return (
-        <Box borderBottom="2px" borderColor="whiorangepha.300">
+        <Box borderBottom="2px" borderColor="whiteAlpha.300">
             <Container
                 maxW="container.xl"
                 display="flex"
@@ -74,9 +74,7 @@ const Nav = ({ address, setAddress }) => {
                     </Link>
                     {[
                         { title: "Home", link: "/" },
-                        { title: "Features", link: "/feats" },
-                        { title: "Shop", link: "/assets" },
-                        { title: "Share", link: "/share" },
+                        { title: "Create meeting", link: "/create" },
                         { title: "My NFTs", link: "/account" },
                     ].map((btn, i) => (
                         <Link

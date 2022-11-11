@@ -1,5 +1,6 @@
-import { CloseIcon } from "@chakra-ui/icons";
+import { AddIcon, CloseIcon } from "@chakra-ui/icons";
 import {
+    Box,
     Button,
     Container,
     Flex,
@@ -13,6 +14,7 @@ import { useState, useEffect } from "react";
 const Admin = ({ connectedContract, saleActive, setSaleActive, isOwner }) => {
     const [pending, setPending] = useState(false);
     const [officers, setOfficers] = useState(false);
+    const [inputs, setInputs] = useState([0]);
     const toast = useToast();
 
     useEffect(() => {
@@ -112,25 +114,65 @@ const Admin = ({ connectedContract, saleActive, setSaleActive, isOwner }) => {
             if (!connectedContract) return;
 
             setPending(true);
-            const addVal = document
-                .querySelector("#mint-form input[name='address']")
-                .value.toString()
-                .trim();
+            const addVals = document.querySelectorAll(
+                "#mint-form input[name='address']"
+            );
 
-            const addTxn = await connectedContract.addOfficer(addVal);
+            let addresses = [];
 
+            for (let addVal of addVals) {
+                addVal.value.toString().trim() !== "" &&
+                    addresses.push(addVal.value.toString().trim());
+            }
+
+            const addTxn = await connectedContract.addOfficer(addresses);
             await addTxn.wait();
 
             toast({
                 title: "Officer added",
-                description: "New officer was added to the broadcast list",
+                description: "New officers were added to the broadcast list",
                 status: "success",
                 duration: 5000,
                 isClosable: true,
                 position: "bottom-right",
             });
             setPending(false);
-            setOfficers([...officers, addVal]);
+            setOfficers(officers.concat(addresses));
+            setInputs([0]);
+            document.querySelector("#mint-form input[name='address']").value =
+                "";
+        } catch (err) {
+            setPending(false);
+            console.log(err);
+            toast({
+                title: "Some error occurred",
+                description: "There was an unexpected server error.",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom-right",
+            });
+        }
+    };
+    const removeOfficer = async (remAddress) => {
+        try {
+            if (!connectedContract) return;
+
+            setPending(true);
+
+            const removeTxn = await connectedContract.removeOfficer(remAddress);
+            await removeTxn.wait();
+
+            toast({
+                title: "Officer added",
+                description: "Officer was removed from the broadcast list",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+                position: "bottom-right",
+            });
+            setPending(false);
+            setOfficers(officers.filter((officer) => officer !== remAddress));
         } catch (err) {
             setPending(false);
             console.log(err);
@@ -146,19 +188,34 @@ const Admin = ({ connectedContract, saleActive, setSaleActive, isOwner }) => {
     };
 
     return (
-        <Container maxW="container.xl" mt={16}>
+        <Container maxW="container.xl" my={16}>
             <form onSubmit={(eve) => addOfficer(eve)} id="mint-form">
                 <br />
-                <Heading>Add Officers</Heading>
+                <Flex alignItems="center">
+                    <Heading mr={3}>Add Officers</Heading>
+                    <Button
+                        colorScheme="blue"
+                        isLoading={pending}
+                        variant="ghost"
+                    >
+                        <AddIcon onClick={() => setInputs([...inputs, 0])} />
+                    </Button>
+                </Flex>
                 <br />
-                <label htmlFor="eth">Enter Value</label>
-                <Input
-                    placeholder="Wallet address/ENS"
-                    name="address"
-                    type="text"
-                    size="lg"
-                />
                 <br />
+                {inputs.map((j, i) => (
+                    <Box key={i}>
+                        <label htmlFor="eth">Enter Value</label>
+                        <Input
+                            placeholder="Wallet address/ENS"
+                            name="address"
+                            type="text"
+                            size="lg"
+                        />
+                        <br />
+                        <br />
+                    </Box>
+                ))}
                 <br />
                 <Button
                     isLoading={pending}
@@ -175,9 +232,13 @@ const Admin = ({ connectedContract, saleActive, setSaleActive, isOwner }) => {
             <br />
             {officers &&
                 officers.map((officer) => (
-                    <Officer key={officer} officer={officer} />
+                    <Officer
+                        key={officer}
+                        officer={officer}
+                        pending={pending}
+                        removeOfficer={removeOfficer}
+                    />
                 ))}
-            <br />
             <br />
             <hr />
             <br />
@@ -209,21 +270,21 @@ const Admin = ({ connectedContract, saleActive, setSaleActive, isOwner }) => {
     );
 };
 
-const Officer = ({ officer }) => {
+const Officer = ({ officer, pending, removeOfficer }) => {
     return (
-        <Flex>
+        <Flex my={2}>
             <Button
                 size="md"
                 onClick={() => {
                     navigator.clipboard.writeText(officer);
                 }}
                 colorScheme="orange"
-                mr={3}
+                mr={2}
             >
                 {officer}
             </Button>
-            <Button  colorScheme="red">
-                <CloseIcon />
+            <Button colorScheme="red" isLoading={pending} variant="ghost">
+                <CloseIcon onClick={() => removeOfficer(officer)} />
             </Button>
         </Flex>
     );

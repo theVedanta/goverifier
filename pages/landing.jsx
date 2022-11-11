@@ -29,7 +29,7 @@ const landing = () => {
 					<span>Get Started</span>
 					<BsArrowRightShort fontSize="30px" />
 				</Button>
-			</Container>
+		 	</Container>
 		</>
 	);
 };
