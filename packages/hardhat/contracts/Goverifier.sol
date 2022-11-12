@@ -14,6 +14,10 @@ contract Goverifier is ERC721URIStorage, Ownable {
 
     address[] officers;
     mapping(address => uint256) nftHolders;
+    string[] proposals;
+
+    mapping(string => bool) passed;
+    mapping(address => bool) voted;
 
     bool public isSaleActive = true;
 
@@ -29,7 +33,7 @@ contract Goverifier is ERC721URIStorage, Ownable {
                 '{ "name": "GVTV #',
                 Strings.toString(currentId.current()),
                 '", "id": ', Strings.toString(currentId.current()), ', "description": "NFT Minter for Goverifier project", ', 
-                '"traits": [{ "trait_type": "VIP", "value": "true" }, { "trait_type": "Purchased", "value": "true" }], ',
+                '"traits": [{ "trait_type": "VIP", "value": "true" }, { "trait_type": "Purchased", "value": "true" }, {"trait_type": "Attending", "value": "false"}], ',
                 '"image": "ipfs://', imgURI, '" }'
             ))));
 
@@ -47,8 +51,6 @@ contract Goverifier is ERC721URIStorage, Ownable {
             currentId.increment();
         }
     }
-
-    // comment for compilation
 
     function openSale() public onlyOwner {
         isSaleActive = true;
@@ -72,4 +74,55 @@ contract Goverifier is ERC721URIStorage, Ownable {
             }
         }
     }
-} 
+
+    function verifyUser(address add) public view returns (bool) {
+        return nftHolders[add] != 0;
+    }
+
+    function changeNFT(string memory cid) public {
+        string memory json = Base64.encode(bytes(string(abi.encodePacked(
+                '{ "name": "GVTV #',
+                Strings.toString(currentId.current()),
+                '", "id": ', Strings.toString(currentId.current()), ', "description": "NFT Minter for Goverifier project", ', 
+                '"traits": [{ "trait_type": "VIP", "value": "true" }, { "trait_type": "Purchased", "value": "true" }, {"trait_type": "Attending", "value": "true"}], ',
+                '"image": "ipfs://, ', cid, '" }'
+            ))));
+
+            string memory tokenURI = string(abi.encodePacked("data:application/json;base64,", json));
+
+            console.log(tokenURI);
+
+            _setTokenURI(currentId.current(), tokenURI);
+    }
+
+    function getProposal() public view returns (string[] memory) {
+        return proposals;
+    }
+    function newProposal(string memory name) public onlyOwner {
+        proposals.push(name);
+    }
+    function vote(string memory name, uint256 voteVal) public {
+        require(!voted[msg.sender], "Already voted");
+        uint256 posVotes = 0;
+        uint256 negVotes = 0;
+
+        if (voteVal == 2) {
+            negVotes += 1;
+        } else if (voteVal == 1) {
+            posVotes += 1;
+        }
+
+        if (posVotes == negVotes) {
+            passed[name] = true;
+        } else if (posVotes > negVotes) {
+            passed[name] = true;
+        } else {
+            passed[name] = false;
+        }
+
+        voted[msg.sender] = true;
+    }
+    function getVotes(string memory name) public view returns (bool) {
+        return passed[name];
+    }
+}
