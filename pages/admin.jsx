@@ -196,7 +196,7 @@ const Admin = ({ connectedContract, saleActive, setSaleActive, isOwner }) => {
             alignItems="center"
             h="80vh"
         >
-            <Box w="56vw" p={6} bg="blackAlpha.400" borderRadius="xl">
+            <Box w="56vw" p={10} bg="blackAlpha.400" borderRadius="xl">
                 {isOwner && (
                     <form onSubmit={(eve) => addOfficer(eve)} id="mint-form">
                         <Flex alignItems="center">
