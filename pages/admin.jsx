@@ -188,84 +188,103 @@ const Admin = ({ connectedContract, saleActive, setSaleActive, isOwner }) => {
     };
 
     return (
-        <Container maxW="container.xl" my={16}>
-            <form onSubmit={(eve) => addOfficer(eve)} id="mint-form">
-                <br />
-                <Flex alignItems="center">
-                    <Heading mr={3}>Add Officers</Heading>
-                    <Button
-                        colorScheme="blue"
-                        isLoading={pending}
-                        variant="ghost"
-                    >
-                        <AddIcon onClick={() => setInputs([...inputs, 0])} />
-                    </Button>
-                </Flex>
-                <br />
-                <br />
-                {inputs.map((j, i) => (
-                    <Box key={i}>
-                        <label htmlFor="eth">Enter Value</label>
-                        <Input
-                            placeholder="Wallet address/ENS"
-                            name="address"
-                            type="text"
+        <Container
+            maxW="container.xl"
+            my={16}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            h="80vh"
+        >
+            <Box w="56vw" p={6} bg="blackAlpha.400" borderRadius="xl">
+                {isOwner && (
+                    <form onSubmit={(eve) => addOfficer(eve)} id="mint-form">
+                        <Flex alignItems="center">
+                            <Heading mr={3}>Add Officers</Heading>
+                            <Button
+                                colorScheme="blue"
+                                isLoading={pending}
+                                variant="ghost"
+                            >
+                                <AddIcon
+                                    onClick={() => setInputs([...inputs, 0])}
+                                />
+                            </Button>
+                        </Flex>
+                        <br />
+                        <br />
+                        {inputs.map((j, i) => (
+                            <Box key={i}>
+                                <label htmlFor="eth" marginBottom="5px">
+                                    Enter Value
+                                </label>
+                                <Input
+                                    placeholder="Wallet address/ENS"
+                                    name="address"
+                                    type="text"
+                                    size="lg"
+                                />
+                                <br />
+                                <br />
+                            </Box>
+                        ))}
+                        <br />
+                        <Button
+                            isLoading={pending}
+                            isDisabled={pending}
+                            type="submit"
+                            colorScheme="orange"
+                            height="auto"
+                            p="15px 20px"
                             size="lg"
-                        />
-                        <br />
-                        <br />
-                    </Box>
-                ))}
+                        >
+                            Add to broadcast
+                        </Button>
+                    </form>
+                )}
                 <br />
-                <Button
-                    isLoading={pending}
-                    isDisabled={pending}
-                    type="submit"
-                    colorScheme="orange"
-                    size="lg"
-                >
-                    Add to broadcast
-                </Button>
-            </form>
-            <br />
-            <hr />
-            <br />
-            {officers &&
-                officers.map((officer) => (
-                    <Officer
-                        key={officer}
-                        officer={officer}
-                        pending={pending}
-                        removeOfficer={removeOfficer}
-                    />
-                ))}
-            <br />
-            <hr />
-            <br />
-            {isOwner &&
-                (saleActive ? (
-                    <Button
-                        isDisabled={pending !== false}
-                        isLoading={pending === "close"}
-                        onClick={() => toggleSale("close")}
-                        colorScheme="orange"
-                        size="lg"
-                        variant="outline"
-                    >
-                        Close minting
-                    </Button>
-                ) : (
-                    <Button
-                        isDisabled={pending !== false}
-                        isLoading={pending === "open"}
-                        onClick={() => toggleSale("open")}
-                        mx={2}
-                        colorScheme="orange"
-                        size="lg"
-                    >
-                        Open minting
-                    </Button>
-                ))}
+                <hr />
+                <br />
+                {officers &&
+                    officers.map((officer) => (
+                        <Officer
+                            key={officer}
+                            officer={officer}
+                            pending={pending}
+                            removeOfficer={removeOfficer}
+                        />
+                    ))}
+                <br />
+                <hr />
+                <br />
+                {isOwner &&
+                    (saleActive ? (
+                        <Button
+                            isDisabled={pending !== false}
+                            isLoading={pending === "close"}
+                            onClick={() => toggleSale("close")}
+                            colorScheme="orange"
+                            size="lg"
+                            width="100%"
+                            padding="20px"
+                            height="auto"
+                            variant="outline"
+                        >
+                            Close minting
+                        </Button>
+                    ) : (
+                        <Button
+                            isDisabled={pending !== false}
+                            isLoading={pending === "open"}
+                            onClick={() => toggleSale("open")}
+                            mx={2}
+                            colorScheme="orange"
+                            size="lg"
+                        >
+                            Open minting
+                        </Button>
+                    ))}
+            </Box>
         </Container>
     );
 };

@@ -73,16 +73,18 @@ const Nav = ({ address, setAddress }) => {
                         </Heading>
                     </Link>
                     {[
-                        { title: "Home", link: "/" },
+                        { title: "Admin", link: "/admin" },
                         { title: "Create meeting", link: "/create" },
+                        { title: "Verify", link: "/verify" },
                         { title: "My NFTs", link: "/account" },
+                        { title: "Voting", link: "/voting" },
                     ].map((btn, i) => (
                         <Link
                             key={i}
                             href={btn.link}
                             _hover={{ textDecor: "none" }}
                         >
-                            <Button mx={1} variant="ghost">
+                            <Button mx={0.2} variant="ghost">
                                 {btn.title}
                             </Button>
                         </Link>

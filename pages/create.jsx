@@ -14,7 +14,7 @@ import {
     Tag,
 } from "@chakra-ui/react";
 import * as IPFS from "ipfs-core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Create = ({ connectedContract }) => {
     const toast = useToast();
@@ -22,15 +22,25 @@ const Create = ({ connectedContract }) => {
     const [time, setTime] = useState("");
     const [venue, setVenue] = useState("");
     const [nftCreated, setNftCreated] = useState(false);
+    const [ipfs, setIpfs] = useState(false);
 
     const mintCustom = async () => {
         try {
             setPending(true);
-            const ipfs = await IPFS.create();
-            const file = document.querySelector("input[name='NFT']").files[0];
-            const uploaded = await ipfs.add(file);
 
-            if (uploaded.path) {
+            if (!ipfs) {
+                const newIpfs = await IPFS.create();
+                setIpfs(newIpfs);
+            }
+
+            const file = document.querySelector("input[name='NFT']").files[0];
+            const uploaded = await ipfs.add(file, {
+                pin: true,
+            });
+
+            console.log(uploaded);
+
+            if (uploaded && uploaded.path) {
                 const mintedTxn = await connectedContract.mintCustom(
                     uploaded.path
                 );
