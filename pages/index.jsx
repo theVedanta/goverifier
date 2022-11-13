@@ -66,9 +66,9 @@ const Home = ({ isOwner }) => {
                                     <Text display="inline" color="orange.600">
                                         votes
                                     </Text>{" "}
-                                    all withing{" "}
+                                    all within the{" "}
                                     <Text display="inline" color="orange.400">
-                                        the Decentralized Web
+                                        Decentralized Web
                                     </Text>
                                 </Text>
                                 <Text w="50%" mt={4} color="whiteAlpha.700">
