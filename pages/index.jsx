@@ -8,7 +8,7 @@ import {
     Link,
     Text,
 } from "@chakra-ui/react";
-import Feats from "../components/feats";
+import Feats from "../components/Feats";
 
 const Home = ({ isOwner }) => {
     return (
