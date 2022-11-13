@@ -90,7 +90,7 @@ contract Goverifier is ERC721URIStorage, Ownable {
                 '{ "name": "GVTV #',
                 tokenId,
                 '", "id": ', tokenId, ', "description": "NFT Minter for Goverifier project", ', 
-                '"traits": [{ "trait_type": "VIP", "value": "true" }, { "trait_type": "Purchased", "value": "true" }, {"trait_type": "Attending", "value": "true"}], ',
+                '"traits": [{ "trait_type": "VIP", "value": "true" }, { "trait_type": "Purchased", "value": "true" }, {"trait_type": "Attending", "value": "true"}],',
                 '"image": "ipfs://, ', latestCID, '" }'
             ))));
 
