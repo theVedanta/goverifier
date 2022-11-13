@@ -4,6 +4,7 @@ import {
     Button,
     Container,
     Flex,
+    FormLabel,
     Heading,
     Input,
     Tag,
@@ -215,9 +216,9 @@ const Admin = ({ connectedContract, saleActive, setSaleActive, isOwner }) => {
                         <br />
                         {inputs.map((j, i) => (
                             <Box key={i}>
-                                <label htmlFor="eth" marginBottom="5px">
+                                <FormLabel htmlFor="eth" mb="5px">
                                     Enter Value
-                                </label>
+                                </FormLabel>
                                 <Input
                                     placeholder="Wallet address/ENS"
                                     name="address"

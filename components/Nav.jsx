@@ -69,7 +69,7 @@ const Nav = ({ address, setAddress }) => {
                             transition="all 0.3s"
                             _hover={{ color: "orange.200" }}
                         >
-                            Metaballism
+                            Goverifier
                         </Heading>
                     </Link>
                     {[
@@ -107,11 +107,7 @@ const Nav = ({ address, setAddress }) => {
                         </Button>
                     )}
                     {address === null ? (
-                        <Button
-                            onClick={connectWallet}
-                            variant="outline"
-                            colorScheme="orange"
-                        >
+                        <Button onClick={connectWallet} colorScheme="orange">
                             Connect
                         </Button>
                     ) : (
@@ -120,7 +116,6 @@ const Nav = ({ address, setAddress }) => {
                                 setAddress(null);
                                 window.localStorage.removeItem("nft-wallet");
                             }}
-                            variant="outline"
                             colorScheme="red"
                         >
                             Disconnect

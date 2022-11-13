@@ -14,9 +14,9 @@ import {
     Tag,
 } from "@chakra-ui/react";
 import * as IPFS from "ipfs-core";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-const Create = ({ connectedContract }) => {
+const Create = ({ connectedContract, isOwner }) => {
     const toast = useToast();
     const [pending, setPending] = useState(false);
     const [time, setTime] = useState("");
@@ -94,106 +94,119 @@ const Create = ({ connectedContract }) => {
     };
 
     return (
-        <Flex
-            minH={"85vh"}
-            align={"center"}
-            justify={"center"}
-            bg={useColorModeValue("gray.50", "gray.800")}
-        >
-            <Stack spacing={8} mx={"auto"} w="36%" py={12} px={6}>
-                <Stack align={"left"}>
-                    <Heading fontSize={"4xl"}>
-                        Gotta invite &apos;em all!
-                    </Heading>
-                </Stack>
-
-                {nftCreated && (
-                    <Box
-                        className="nft"
-                        bg="blackAlpha.500"
-                        p={16}
-                        borderRadius="lg"
-                        display="flex"
-                        flexDirection="column"
-                        alignItems="center"
-                    >
-                        <Heading>Meeting invite</Heading>
-                        <Text mt={6} fontSize="20px">
-                            <Tag size="lg">Time</Tag> : {time}
-                        </Text>
-                        <Text mt={2} fontSize="20px">
-                            <Tag size="lg">Venue</Tag> : {venue}
-                        </Text>
-                    </Box>
-                )}
-
-                <Box
-                    rounded={"lg"}
-                    bg={useColorModeValue("white", "gray.700")}
-                    boxShadow={"lg"}
-                    p={8}
+        <>
+            {isOwner ? (
+                <Flex
+                    minH={"85vh"}
+                    align={"center"}
+                    justify={"center"}
+                    bg={useColorModeValue("gray.50", "gray.800")}
                 >
-                    <Stack spacing={4}>
-                        {!nftCreated ? (
-                            <>
-                                <FormControl id="name">
-                                    <FormLabel>Time</FormLabel>
-                                    <Input type="time" name="time" />
-                                </FormControl>
-                                <FormControl id="name">
-                                    <FormLabel>Date</FormLabel>
-                                    <Input type="date" name="date" />
-                                </FormControl>
-                                <FormControl id="address">
-                                    <FormLabel>address</FormLabel>
-                                    <Textarea
-                                        type="text"
-                                        name="address"
-                                        maxH="20vh"
-                                        minH="10vh"
-                                    />
-                                </FormControl>
-                            </>
-                        ) : (
-                            <FormControl>
-                                <FormLabel>Image Upload</FormLabel>
-                                <Input
-                                    type="file"
-                                    name="NFT"
-                                    id="NFT"
-                                    accept=".jpg, .jpeg, .png, .svg"
-                                />
-                            </FormControl>
-                        )}
-                        <Stack spacing={10}>
-                            {!nftCreated ? (
-                                <Button
-                                    onClick={createNFT}
-                                    colorScheme="orange"
-                                    mt={6}
-                                    size="lg"
-                                    isLoading={pending}
-                                    isDisabled={pending}
-                                >
-                                    Create NFT
-                                </Button>
-                            ) : (
-                                <Button
-                                    onClick={mintCustom}
-                                    colorScheme="orange"
-                                    mt={6}
-                                    size="lg"
-                                    isLoading={pending}
-                                    isDisabled={pending}
-                                >
-                                    Broadcast
-                                </Button>
-                            )}
+                    <Stack spacing={8} mx={"auto"} w="36%" py={12} px={6}>
+                        <Stack align={"left"}>
+                            <Heading fontSize={"4xl"}>
+                                Gotta invite &apos;em all!
+                            </Heading>
                         </Stack>
+
+                        {nftCreated && (
+                            <Box
+                                className="nft"
+                                bg="blackAlpha.500"
+                                p={16}
+                                borderRadius="lg"
+                                display="flex"
+                                flexDirection="column"
+                                alignItems="center"
+                            >
+                                <Heading>Meeting invite</Heading>
+                                <Text mt={6} fontSize="20px">
+                                    <Tag size="lg">Time</Tag> : {time}
+                                </Text>
+                                <Text mt={2} fontSize="20px">
+                                    <Tag size="lg">Venue</Tag> : {venue}
+                                </Text>
+                            </Box>
+                        )}
+
+                        <Box
+                            rounded={"lg"}
+                            bg={useColorModeValue("white", "gray.700")}
+                            boxShadow={"lg"}
+                            p={8}
+                        >
+                            <Stack spacing={4}>
+                                {!nftCreated ? (
+                                    <>
+                                        <FormControl id="name">
+                                            <FormLabel>Time</FormLabel>
+                                            <Input type="time" name="time" />
+                                        </FormControl>
+                                        <FormControl id="name">
+                                            <FormLabel>Date</FormLabel>
+                                            <Input type="date" name="date" />
+                                        </FormControl>
+                                        <FormControl id="address">
+                                            <FormLabel>address</FormLabel>
+                                            <Textarea
+                                                type="text"
+                                                name="address"
+                                                maxH="20vh"
+                                                minH="10vh"
+                                            />
+                                        </FormControl>
+                                    </>
+                                ) : (
+                                    <FormControl>
+                                        <FormLabel>Image Upload</FormLabel>
+                                        <Input
+                                            type="file"
+                                            name="NFT"
+                                            id="NFT"
+                                            accept=".jpg, .jpeg, .png, .svg"
+                                        />
+                                    </FormControl>
+                                )}
+                                <Stack spacing={10}>
+                                    {!nftCreated ? (
+                                        <Button
+                                            onClick={createNFT}
+                                            colorScheme="orange"
+                                            mt={6}
+                                            size="lg"
+                                            isLoading={pending}
+                                            isDisabled={pending}
+                                        >
+                                            Create NFT
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            onClick={mintCustom}
+                                            colorScheme="orange"
+                                            mt={6}
+                                            size="lg"
+                                            isLoading={pending}
+                                            isDisabled={pending}
+                                        >
+                                            Broadcast
+                                        </Button>
+                                    )}
+                                </Stack>
+                            </Stack>
+                        </Box>
                     </Stack>
-                </Box>
-            </Stack>
-        </Flex>
+                </Flex>
+            ) : (
+                <Flex
+                    w="full"
+                    h="80vh"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Heading>Authoried Personnel only.</Heading>
+                </Flex>
+            )}
+        </>
     );
 };
 

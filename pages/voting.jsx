@@ -40,6 +40,8 @@ const Voting = ({ connectedContract, isOwner }) => {
         let votes = await connectedContract.getVotes(
             proposal[proposal.length - 1]
         );
+        await votes.wait();
+
         setPassed(votes);
     };
 
@@ -54,9 +56,13 @@ const Voting = ({ connectedContract, isOwner }) => {
         }
     };
 
+    const clear = async () => {
+        const clr = await connectedContract.clearVotes();
+        await clr.wait();
+    };
+
     return (
         <Flex
-            maxW="container.xl"
             direction="column"
             justifyContent="center"
             alignItems="center"
@@ -64,7 +70,7 @@ const Voting = ({ connectedContract, isOwner }) => {
         >
             {isOwner && (
                 <>
-                    <Box bg="blackAlpha.400" borderRadius="xl" p={8} w="36%">
+                    <Box bg="blackAlpha.400" borderRadius="xl" p={8} w="30%">
                         <Heading fontSize="2xl">Create new Proposal</Heading>
                         <Input
                             mt={3}
@@ -87,7 +93,7 @@ const Voting = ({ connectedContract, isOwner }) => {
                 </>
             )}
             {proposal !== "" && (
-                <Box bg="blackAlpha.400" borderRadius="xl" p={8} w="36%">
+                <Box bg="blackAlpha.400" borderRadius="xl" p={8} w="30%">
                     <Heading fontSize="2xl">Proposal: {proposal}</Heading>
                     <br />
                     <Flex
@@ -116,12 +122,16 @@ const Voting = ({ connectedContract, isOwner }) => {
             )}
 
             <br />
-            <Box bg="blackAlpha.400" borderRadius="xl" p={8} w="36%">
+            <Box bg="blackAlpha.400" borderRadius="xl" p={8} w="30%">
                 <Heading>Votes</Heading>
                 <br />
-                <Tag colorScheme="orange">
+                <Tag colorScheme="orange" size="lg">
                     {passed ? "Order passed" : "Order was not passed"}
                 </Tag>
+
+                <br />
+                <br />
+                <Button onClick={clear}>Clear votes</Button>
             </Box>
         </Flex>
     );

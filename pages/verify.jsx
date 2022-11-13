@@ -26,9 +26,8 @@ const Verify = ({ connectedContract }) => {
                 isClosable: true,
             });
 
-            await connectedContract.changeNFT(
-                "QmX932sRCAV8FRFXxQnGuCEM4u6Z3HTL1nTC5acDiPrJiE"
-            );
+            const att = await connectedContract.changeNFT(addy);
+            await att.wait();
         } else {
             toast({
                 title: "Address not NFT Hoder!",

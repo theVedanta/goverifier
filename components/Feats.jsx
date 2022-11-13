@@ -1,13 +1,16 @@
-import { Box, Container, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import {
+    Box,
+    Container,
+    Flex,
+    Heading,
+    Image,
+    Link,
+    Text,
+} from "@chakra-ui/react";
 
 const Feats = () => {
     return (
-        <Container
-            maxW="container.xl"
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-        >
+        <>
             <Flex
                 direction="column"
                 w="full"
@@ -19,21 +22,22 @@ const Feats = () => {
                 <Heading mt={10} fontSize={50} w="60%">
                     The{" "}
                     <Text display="inline" color="orange.300">
-                        modern
+                        all
                     </Text>
                     <Text display="inline" color="orange.400">
-                        -
+                        -in-
                     </Text>
                     <Text display="inline" color="orange.500">
-                        retro
+                        one
                     </Text>{" "}
-                    game on the Decentralized Web
+                    platform for government privacy
                 </Heading>
-                <Text w="44%" color="whiorangepha.600" mt={5}>
-                    Metaballism brings all the exciting tech you have hoped to
-                    experience right in the palm of your hand. From building and
-                    selling your own tracks in the Metaverse, to finding the
-                    perfect skin for your ball, you can do it all here!
+                <Text w="44%" color="whiteAlpha.600" mt={5}>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Ducimus quasi expedita, reprehenderit fugiat harum vitae
+                    cupiditate dolorem. A ea molestias quisquam deserunt
+                    suscipit ducimus adipisci Lorem ipsum dolor sit amet
+                    consectetur.
                 </Text>
             </Flex>
 
@@ -45,7 +49,7 @@ const Feats = () => {
                         justifyContent="center"
                         textAlign="center"
                         alignItems="center"
-                        bg="whiorangepha.200"
+                        bg="whiteAlpha.200"
                         p={10}
                         w="26%"
                     >
@@ -53,12 +57,13 @@ const Feats = () => {
                     </Flex>
 
                     <Box w="74%" px={20} py={8}>
-                        <Heading>Buy and sell in-game NFTs</Heading>
-                        <Text w="85%" color="whiorangepha.800" mt={5}>
-                            Bored of same old skins and repetitive tracks? Visit
-                            the marketplace to buy some amazing skins and tracks
-                            made by some of the best design artists. What makes
-                            them special? There can only exist 1 skin of a type
+                        <Heading>1. Install the MetaMask extension</Heading>
+                        <Text w="85%" color="whiteAlpha.800" mt={5}>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Ducimus quasi expedita, reprehenderit fugiat
+                            harum vitae cupiditate dolorem. A ea molestias
+                            quisquam deserunt suscipit ducimus adipisci Lorem
+                            ipsum dolor sit amet consectetur.
                         </Text>
                     </Box>
                 </Flex>
@@ -70,7 +75,7 @@ const Feats = () => {
                         justifyContent="center"
                         textAlign="center"
                         alignItems="center"
-                        bg="whiorangepha.200"
+                        bg="whiteAlpha.200"
                         p={10}
                         w="26%"
                     >
@@ -78,12 +83,16 @@ const Feats = () => {
                     </Flex>
 
                     <Box w="74%" px={20} py={8}>
-                        <Heading>Customized tracks</Heading>
-                        <Text w="85%" color="whiorangepha.800" mt={5}>
-                            Enter the MetaVerse! Jump into the pinball machine
-                            and place the elements as you would want them to be
-                            in a track. Make an NFT for the track&apos;s design
-                            and trade. Open doors to a new universe
+                        <Heading>
+                            2. Check for NFTs in{" "}
+                            <Link href="/account">My NFTs</Link>
+                        </Heading>
+                        <Text w="85%" color="whiteAlpha.800" mt={5}>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Ducimus quasi expedita, reprehenderit fugiat
+                            harum vitae cupiditate dolorem. A ea molestias
+                            quisquam deserunt suscipit ducimus adipisci Lorem
+                            ipsum dolor sit amet consectetur.
                         </Text>
                     </Box>
                 </Flex>
@@ -95,7 +104,7 @@ const Feats = () => {
                         justifyContent="center"
                         textAlign="center"
                         alignItems="center"
-                        bg="whiorangepha.200"
+                        bg="whiteAlpha.200"
                         p={10}
                         w="26%"
                     >
@@ -103,13 +112,15 @@ const Feats = () => {
                     </Flex>
 
                     <Box w="74%" px={20} py={8}>
-                        <Heading>theBalls Community</Heading>
-                        <Text w="85%" color="whiorangepha.800" mt={5}>
-                            Share your ideas/skin-designs/track-layouts with the
-                            other players around the world. Ask them for a price
-                            to own it or just share for fun :) People can also
-                            give their reviews on assets and make learning
-                            easier!
+                        <Heading>
+                            3. Attend meeting and check-in via QR-codes
+                        </Heading>
+                        <Text w="85%" color="whiteAlpha.800" mt={5}>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Ducimus quasi expedita, reprehenderit fugiat
+                            harum vitae cupiditate dolorem. A ea molestias
+                            quisquam deserunt suscipit ducimus adipisci Lorem
+                            ipsum dolor sit amet consectetur.
                         </Text>
                     </Box>
                 </Flex>
@@ -121,7 +132,7 @@ const Feats = () => {
                         justifyContent="center"
                         textAlign="center"
                         alignItems="center"
-                        bg="whiorangepha.200"
+                        bg="whiteAlpha.200"
                         p={10}
                         w="26%"
                     >
@@ -129,17 +140,20 @@ const Feats = () => {
                     </Flex>
 
                     <Box w="74%" px={20} py={8}>
-                        <Heading>Earn as you play!</Heading>
-                        <Text w="85%" color="whiorangepha.800" mt={5}>
-                            All throughout the Metaballism world, you can find
-                            various tiny tokens that can either be NFTs or ETH.
-                            Find them and collect them on your tracks to get new
-                            skins/tracks. Surprises all around 😋
+                        <Heading>
+                            4. Vote on certain proposals within the app
+                        </Heading>
+                        <Text w="85%" color="whiteAlpha.800" mt={5}>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Ducimus quasi expedita, reprehenderit fugiat
+                            harum vitae cupiditate dolorem. A ea molestias
+                            quisquam deserunt suscipit ducimus adipisci Lorem
+                            ipsum dolor sit amet consectetur.
                         </Text>
                     </Box>
                 </Flex>
             </Box>
-        </Container>
+        </>
     );
 };
 

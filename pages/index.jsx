@@ -8,20 +8,26 @@ import {
     Link,
     Text,
 } from "@chakra-ui/react";
+import Feats from "../components/feats";
 
 const Home = ({ isOwner }) => {
     return (
-        <Box bg="url(/bg.jpg)" w="100vw">
+        <Box w="100vw">
             <Container
                 maxW={"container.xl"}
                 display="flex"
                 flexDirection="column"
                 justifyContent="center"
                 alignItems="center"
-                h="100vh"
             >
                 {isOwner ? (
-                    <>
+                    <Flex
+                        w="full"
+                        h="80vh"
+                        justifyContent="center"
+                        alignItems="center"
+                        direction="column"
+                    >
                         <Heading>
                             What&apos;re you doing here admin hai tu 🙄
                         </Heading>
@@ -36,77 +42,71 @@ const Home = ({ isOwner }) => {
                                 Admin
                             </Button>
                         </Link>
-                    </>
+                    </Flex>
                 ) : (
                     <>
                         <Container
                             maxW="container.xl"
                             display="flex"
-                            flexDirection="column"
                             alignItems="center"
                             justifyContent="center"
                             h="80vh"
                         >
+                            <Box w="70%">
+                                <Text w="85%" fontSize={42} fontWeight="black">
+                                    Schedule{" "}
+                                    <Text display="inline" color="orange.400">
+                                        meetings
+                                    </Text>
+                                    , maintain{" "}
+                                    <Text display="inline" color="orange.200">
+                                        records
+                                    </Text>
+                                    , conduct{" "}
+                                    <Text display="inline" color="orange.600">
+                                        votes
+                                    </Text>{" "}
+                                    all withing{" "}
+                                    <Text display="inline" color="orange.400">
+                                        the Decentralized Web
+                                    </Text>
+                                </Text>
+                                <Text w="50%" mt={4} color="whiteAlpha.700">
+                                    Lorem ipsum dolor sit amet consectetur
+                                    adipisicing elit. Ducimus quasi expedita,
+                                    reprehenderit fugiat harum vitae cupiditate
+                                    dolorem. A ea molestias quisquam deserunt
+                                    suscipit ducimus adipisci.
+                                </Text>
+                                <Flex>
+                                    <Button
+                                        colorScheme="orange"
+                                        size="lg"
+                                        mr={4}
+                                        mt={8}
+                                    >
+                                        Learn more
+                                    </Button>
+                                    <Button
+                                        colorScheme="orange"
+                                        size="lg"
+                                        variant={"outline"}
+                                        mr={4}
+                                        mt={8}
+                                    >
+                                        Install MetaMask
+                                    </Button>
+                                </Flex>
+                            </Box>
                             <Image
                                 src="/full-logo.png"
-                                boxSize="340px"
                                 alt="logo"
+                                w="30%"
+                                fit={"cover"}
                             />
-                            <Text
-                                w="70%"
-                                textAlign="center"
-                                fontSize={45}
-                                fontWeight="black"
-                            >
-                                Personalise{" "}
-                                <Text display="inline" color="orange.400">
-                                    tracks
-                                </Text>
-                                , make{" "}
-                                <Text display="inline" color="orange.200">
-                                    adventure
-                                </Text>
-                                , trade{" "}
-                                <Text display="inline" color="orange.600">
-                                    skins
-                                </Text>{" "}
-                                all with{" "}
-                                <Text display="inline" color="orange.400">
-                                    Web3
-                                </Text>
-                            </Text>
-                            <Text
-                                w="50%"
-                                textAlign="center"
-                                mt={4}
-                                color="whiorangepha.700"
-                            >
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Ducimus quasi expedita,
-                                reprehenderit fugiat harum vitae cupiditate
-                                dolorem. A ea molestias quisquam deserunt
-                                suscipit ducimus adipisci.
-                            </Text>
-                            <Flex>
-                                <Button
-                                    colorScheme="orange"
-                                    size="lg"
-                                    mx={4}
-                                    mt={8}
-                                >
-                                    Try it out
-                                </Button>
-                                <Button
-                                    colorScheme="orange"
-                                    variant="outline"
-                                    size="lg"
-                                    mx={4}
-                                    mt={8}
-                                >
-                                    shop
-                                </Button>
-                            </Flex>
                         </Container>
+
+                        <Feats />
                     </>
                 )}
             </Container>
