@@ -96,12 +96,7 @@ const Create = ({ connectedContract, isOwner }) => {
     return (
         <>
             {isOwner ? (
-                <Flex
-                    minH={"85vh"}
-                    align={"center"}
-                    justify={"center"}
-                    bg={useColorModeValue("gray.50", "gray.800")}
-                >
+                <Flex minH={"85vh"} align={"center"} justify={"center"}>
                     <Stack spacing={8} mx={"auto"} w="36%" py={12} px={6}>
                         <Stack align={"left"}>
                             <Heading fontSize={"4xl"}>
@@ -129,12 +124,7 @@ const Create = ({ connectedContract, isOwner }) => {
                             </Box>
                         )}
 
-                        <Box
-                            rounded={"lg"}
-                            bg={useColorModeValue("white", "gray.700")}
-                            boxShadow={"lg"}
-                            p={8}
-                        >
+                        <Box rounded={"lg"} boxShadow={"lg"} p={8}>
                             <Stack spacing={4}>
                                 {!nftCreated ? (
                                     <>
