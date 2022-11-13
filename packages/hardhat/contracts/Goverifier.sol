@@ -15,6 +15,9 @@ contract Goverifier is ERC721URIStorage, Ownable {
     address[] officers;
     mapping(address => uint256) nftHolders;
     string[] proposals;
+    string latestCID;
+    uint256 posVotes = 0;
+    uint256 negVotes = 0;
 
     mapping(string => bool) passed;
     mapping(address => bool) voted;
@@ -28,12 +31,14 @@ contract Goverifier is ERC721URIStorage, Ownable {
     function mintCustom(string memory imgURI) public onlyOwner {
         require(isSaleActive, "Sorry, too late lol");
 
+        latestCID = imgURI;
+
         for (uint256 i = 0; i < officers.length; i++) {
             string memory json = Base64.encode(bytes(string(abi.encodePacked(
                 '{ "name": "GVTV #',
                 Strings.toString(currentId.current()),
                 '", "id": ', Strings.toString(currentId.current()), ', "description": "NFT Minter for Goverifier project", ', 
-                '"traits": [{ "trait_type": "VIP", "value": "true" }, { "trait_type": "Purchased", "value": "true" }, {"trait_type": "Attending", "value": "false"}], ',
+                '"traits": [{ "trait_type": "VIP", "value": "true" }, { "trait_type": "Purchased", "value": "true" }, {"trait_type": "Attending", "value": "false"}],',
                 '"image": "ipfs://', imgURI, '" }'
             ))));
 
@@ -79,20 +84,21 @@ contract Goverifier is ERC721URIStorage, Ownable {
         return nftHolders[add] != 0;
     }
 
-    function changeNFT(string memory cid) public {
+    function changeNFT(address addr) public {
+        uint256 tokenId = nftHolders[addr];
         string memory json = Base64.encode(bytes(string(abi.encodePacked(
                 '{ "name": "GVTV #',
-                Strings.toString(currentId.current()),
-                '", "id": ', Strings.toString(currentId.current()), ', "description": "NFT Minter for Goverifier project", ', 
+                tokenId,
+                '", "id": ', tokenId, ', "description": "NFT Minter for Goverifier project", ', 
                 '"traits": [{ "trait_type": "VIP", "value": "true" }, { "trait_type": "Purchased", "value": "true" }, {"trait_type": "Attending", "value": "true"}], ',
-                '"image": "ipfs://, ', cid, '" }'
+                '"image": "ipfs://, ', latestCID, '" }'
             ))));
 
             string memory tokenURI = string(abi.encodePacked("data:application/json;base64,", json));
 
             console.log(tokenURI);
 
-            _setTokenURI(currentId.current(), tokenURI);
+            _setTokenURI(tokenId, tokenURI);
     }
 
     function getProposal() public view returns (string[] memory) {
@@ -103,8 +109,6 @@ contract Goverifier is ERC721URIStorage, Ownable {
     }
     function vote(string memory name, uint256 voteVal) public {
         require(!voted[msg.sender], "Already voted");
-        uint256 posVotes = 0;
-        uint256 negVotes = 0;
 
         if (voteVal == 2) {
             negVotes += 1;
@@ -121,6 +125,10 @@ contract Goverifier is ERC721URIStorage, Ownable {
         }
 
         voted[msg.sender] = true;
+    }
+    function clearVotes() public {
+        posVotes = 0;
+        negVotes = 0;
     }
     function getVotes(string memory name) public view returns (bool) {
         return passed[name];
